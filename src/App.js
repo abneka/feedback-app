@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import FeedbackForm from "./component/FeedbackForm"
+import FeedbackStatus from "./component/FeedbackStatus"
+import Header from "./component/Header"
+import Tiles from "./component/Tiles"
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import About from "./component/pages/About"
+import AboutLink from "./component/AboutLink"
+import { FeedbackProvider } from './component/context/FeedbackContext'
 
-function App() {
+export default function App () {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <FeedbackProvider>
+        <Router>
+        <Header/>
+        <div className="container">
+          <Routes>
+          {/* <Route path='/*' element={<h2>404 Not Found</h2>}/> */}
+            <Route path='/' element={
+              <>
+                <FeedbackForm />
+                <FeedbackStatus />
+                <Tiles/>
+              </>
+            } />
+            <Route path='/about' element={<About/>}/>
+          </Routes>
+          <AboutLink/>
+        </div>
+      </Router>
+    </FeedbackProvider>
+  )
 }
-
-export default App;
